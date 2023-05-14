@@ -1,12 +1,5 @@
 #!/usr/bin/python3
-from models.base_model import BaseModel
-from models import Storage
-from models.user import User
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.place import Place
-from models.review import Review
+"""Defines the HBnB console."""
 import cmd
 
 """
@@ -31,25 +24,6 @@ class HBNBCommand(cmd.Cmd):
     """
    
     prompt = ' (hbnb) '
-
-    def __init__(self, completekey='tab'):
-        super().__init__(completekey=completekey)
-        self.__models = {
-                'BaseModel': BaseModel,
-                'User': User,
-                'State': State,
-                'City': City,
-                'Amenity': Amenity,
-                'Place': Place,
-                'Review': Review
-                }
-        self.__valid_methods = ['create', 'show', 'destroy', 'all', 'update']
-        self.allowed_classes = list(self.__models.keys())
-        self.__options = [
-                '{}.{}'.format(k, v)
-                for k, v in self.__models.items()
-                for v in dir(v) if not v.startswith('_')
-                ]
 
     def do_quit(self, args):
         """Quit command to exit the program"""
