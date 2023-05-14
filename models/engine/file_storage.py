@@ -4,10 +4,10 @@ import json
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
-from models.review import review
-from models.amenity import amenity
-from models.place import place
-from models.city import city
+from models.review import Review
+from models.amenity import Amenity
+from models.place import Place
+from models.city import City
 
 
 class FileStorage:
@@ -31,19 +31,18 @@ class FileStorage:
 
     def save(self):
         """Serializing __objects to the JSON file __file_path."""
-        odict = FileStorage.__objects
-        objdict = {obj: odict[obj].to_dict() for obj in odict.keys()}
+        odict = {key: obj.to_dict() for key, obj in FileStorage.__objects.items()}
         with open(FileStorage.__file_path, "w") as f:
-            json.dump(objdict, f)
+            json.dump(odict, f)
 
     def reload(self):
         """Deserializing the JSON file __file_path to __objects, if it exists."""
         try:
             with open(FileStorage.__file_path) as f:
                 objdict = json.load(f)
-                for o in objdict.values():
-                    cls_name = o["__class__"]
-                    del o["__class__"]
-                    self.new(eval(cls_name)(**o))
+                for obj_id, obj_dict in objdict.items():
+                    cls_name = obj_dict["__class__"]
+                    del obj_dict["__class__"]
+                    self.new(eval(cls_name)(**obj_dict))
         except FileNotFoundError:
             return
