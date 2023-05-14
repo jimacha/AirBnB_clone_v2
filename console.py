@@ -19,8 +19,6 @@ Inside the console,the user can enter commands in the following format:
 (hbnb) command class_name class_id [attribute_name] [attribute_value]
 
 """
-
-
 class HBNBCommand(cmd.Cmd):
     """
     This class defines a command-line interpreter for managing instances of
@@ -31,7 +29,7 @@ class HBNBCommand(cmd.Cmd):
     prompt (str):there is a prompt before a user enters a command that has Default value of "(hbnb)" 
     
     """
-
+   
     prompt = ' (hbnb) '
 
     def __init__(self, completekey='tab'):
@@ -58,7 +56,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_EOF(self, args):
-        """EOF(end of file) command to exit the program"""
+        """EOF command to exit the program"""
         return True
 
     def do_create(self, line):
@@ -132,7 +130,12 @@ class HBNBCommand(cmd.Cmd):
         """
         Prints all string representation of all instances based or
         not on the class name.
-        
+        Usage:
+            all             Prints all string representaion of all instances
+                            from all classes.
+
+            <class name>.all() Prints all string representaion of all instances
+                                from the given class name.
         """
         args = line.split()
         all_instances = storage.all()
@@ -230,7 +233,7 @@ class HBNBCommand(cmd.Cmd):
                 return
             all_instances = storage.all()
             count = sum(1 for obj in all_instances.values()
-                    if type(obj).__name__ == class_name)
+                        if type(obj).__name__ == class_name)
             print(count)
         else:
             print("*** Unknown syntax: {}".format(line))
