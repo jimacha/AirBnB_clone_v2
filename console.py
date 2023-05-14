@@ -1,17 +1,17 @@
 #!/usr/bin/python3
 """Defines the HBnB console."""
 import cmd
+"""
+    This is a module where you define your class HBNBCommand class, a command interpreter that
+    implements commands for creating, showing, destroying, updating and listing
+    instances of classes that inherit from BaseModel.
+
+    Inside the console,the user can enter commands in the following format:
+
+    (hbnb) command class_name class_id [attribute_name] [attribute_value]
 
 """
-This is a module where you define your class HBNBCommand class, a command interpreter that
-implements commands for creating, showing, destroying, updating and listing
-instances of classes that inherit from BaseModel.
 
-Inside the console,the user can enter commands in the following format:
-
-(hbnb) command class_name class_id [attribute_name] [attribute_value]
-
-"""
 class HBNBCommand(cmd.Cmd):
     """
     This class defines a command-line interpreter for managing instances of
@@ -22,16 +22,29 @@ class HBNBCommand(cmd.Cmd):
     prompt (str):there is a prompt before a user enters a command that has Default value of "(hbnb)" 
     
     """
-   
-    prompt = ' (hbnb) '
 
-    def do_quit(self, args):
-        """Quit command to exit the program"""
+    prompt = '(hbnb) '
+
+    def do_quit(self, arg):
+        """Return True upon receiving quit command"""
         return True
 
-    def do_EOF(self, args):
-        """EOF command to exit the program"""
+    def help_quit(self):
+        """Dispaly information about the quit command."""
+        print("Quit command to exit the program")
+
+    def do_EOF(self, arg):
+        """Retrun upon receiving an EOF signal"""
+        print("")
         return True
+
+    def help_EOF(self):
+        """Display information about EOF signal handling."""
+        print("EOF signal to exit the program")
+
+    def emptyline(self):
+        """Do nothing on empty line"""
+        pass
 
     def do_create(self, line):
         """Create command to create a new instance of a class"""
